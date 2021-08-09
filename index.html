@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      textarea {
+        width: 50%;
+      }
+    </style>
+    <title>Custom clearkey key system test page</title>
+    <script type="text/javascript" src="script.js"></script>
+  </head>
+  <body>
+    <script>
+      window.onload = setupPage;
+    </script>
+    <div>
+      <p>
+        Enter a key system name and then request access to attempt playback
+        with the specified key system.
+      </p>
+    </div>
+
+    <div>
+      <h4>key system:</h4>
+      <div>
+        <input type="text" placeholder="org.w3c.clearkey" id="keysystem"></input>
+      </div>
+      <div>
+        <button id="requestAccess">navigator.requestMediaKeySystemAccess()</button>
+      </div>
+    </div>
+    <div>
+      <h4>Log</h4>
+      <div>
+        <textarea id="log"></textarea>
+      </div>
+    </div>
+
+    <div>
+        <video id="mediaElement" controls></video>
+    </div>
+  </body>
+</html>

@@ -30,8 +30,8 @@ async function once(target, name) {
 function log(message) {
   let textArea = document.getElementById("log");
 
-  textArea.innerText += message;
-  textArea.innerText += "\n";
+  textArea.value += message;
+  textArea.value += "\n";
 }
 
 async function setupEme() {
@@ -63,6 +63,8 @@ async function setupEme() {
     session.onmessage = (messageEvent) => {
       let request = JSON.parse(new TextDecoder().decode(messageEvent.message));
 
+      log(`Got message ${JSON.stringify(request)}`);
+
       let keys = [];
       for (const keyId of request.kids) {
         let key = keyMap.get(keyId);
@@ -87,6 +89,17 @@ async function setupEme() {
       session.update(license).catch((error) => {
         log(error);
       });
+    };
+
+    session.onkeystatuseschange = async (_keystatuseschange) => {
+      function bytesToHex(bytes) {
+        return [...new Uint8Array(bytes)]
+          .map((x) => x.toString(16).padStart(2, "0"))
+          .join("");
+      }
+      for (let [key, status] of session.keyStatuses) {
+        log(`${bytesToHex(key)} : ${status}`);
+      }
     };
 
     try {

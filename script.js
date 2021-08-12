@@ -97,8 +97,8 @@ async function setupEme() {
           .map((x) => x.toString(16).padStart(2, "0"))
           .join("");
       }
-      for (let [key, status] of session.keyStatuses) {
-        log(`${bytesToHex(key)} : ${status}`);
+      for (let [keyId, status] of session.keyStatuses) {
+        log(`${bytesToHex(keyId)} : ${status}`);
       }
     };
 
